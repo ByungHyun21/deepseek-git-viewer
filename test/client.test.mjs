@@ -39,6 +39,13 @@ const flatten = (node) => {
   return flatten(node.children);
 };
 
+test("popup surfaces are opaque, not a translucent veil", () => {
+  const source = fs.readFileSync(new URL("../lib/client.js", import.meta.url), "utf8");
+  assert.ok(!source.includes("backdrop-filter:blur"), "popup must not rely on backdrop blur");
+  assert.ok(!/detailBackdrop\{[^}]*background:var\(--dsw-alias-bg-base\)/.test(source), "backdrop must not use the transparent base token directly");
+  assert.ok(source.includes("linear-gradient(var(--dsw-alias-bg-layer-2)"), "panel should stack an opaque surface");
+});
+
 test("inline markdown terminates with nested emphasis and links", () => {
   const { inlineNodes } = loadClient().__test;
   const resolve = (href) => href;
