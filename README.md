@@ -15,8 +15,8 @@ DeepSeek Harness 사이드바에 **GitHub 레포 갤러리**를 더한다. 관�
 이 저장소가 곧 DSH 플러그인 패키지다. `web` 프로필에 설치한다.
 
 ```bash
-git clone <이 저장소>
-cd deepseek-github-viewer
+git clone https://github.com/ByungHyun21/deepseek-git-viewer.git
+cd deepseek-git-viewer
 npm install --omit=dev
 ```
 
@@ -85,6 +85,10 @@ npm run check   # 세 파일 문법 검사
 
 테스트는 실제 GitHub 에 접속하지 않는다. `fetchImpl` 을 주입해 페이지네이션·조직 폴백·
 README 디코드·한도 오류를 확인한다.
+
+## 링크
+
+- GitHub: <https://github.com/ByungHyun21/deepseek-git-viewer>
 
 ## 라이선스
 

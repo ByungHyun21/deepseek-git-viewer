@@ -4,6 +4,14 @@
   "description": "관심 GitHub 사용자의 레포를 카드 갤러리로 보여주는 DeepSeek Harness 패널",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ByungHyun21/deepseek-git-viewer.git"
+  },
+  "homepage": "https://github.com/ByungHyun21/deepseek-git-viewer#readme",
+  "bugs": {
+    "url": "https://github.com/ByungHyun21/deepseek-git-viewer/issues"
+  },
   "keywords": [
     "deepseek-harness",
     "dsh",
