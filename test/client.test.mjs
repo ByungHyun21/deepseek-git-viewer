@@ -39,11 +39,16 @@ const flatten = (node) => {
   return flatten(node.children);
 };
 
-test("popup surfaces are opaque, not a translucent veil", () => {
+test("popup panel is opaque while the area outside it stays transparent", () => {
   const source = fs.readFileSync(new URL("../lib/client.js", import.meta.url), "utf8");
-  assert.ok(!source.includes("backdrop-filter:blur"), "popup must not rely on backdrop blur");
-  assert.ok(!/detailBackdrop\{[^}]*background:var\(--dsw-alias-bg-base\)/.test(source), "backdrop must not use the transparent base token directly");
-  assert.ok(source.includes("linear-gradient(var(--dsw-alias-bg-layer-2)"), "panel should stack an opaque surface");
+  const backdrop = /\.dsgh-detailBackdrop\{([^}]*)\}/.exec(source)?.[1] ?? "";
+  const panel = /\.dsgh-detailPanel\{([^}]*)\}/.exec(source)?.[1] ?? "";
+  assert.match(backdrop, /background:transparent/, "the area outside the popup must stay transparent");
+  assert.ok(!backdrop.includes("linear-gradient"), "the backdrop must not paint an opaque layer over the page");
+  assert.ok(!backdrop.includes("backdrop-filter"), "the backdrop must not blur the page");
+  const layers = panel.match(/linear-gradient\(var\(--dsw-alias-bg-layer-2\)/g)?.length ?? 0;
+  assert.ok(layers >= 3, "the popup panel itself must stack enough layers to be opaque");
+  assert.ok(!panel.includes("backdrop-filter:blur"), "the popup must not rely on backdrop blur");
 });
 
 test("inline markdown terminates with nested emphasis and links", () => {
